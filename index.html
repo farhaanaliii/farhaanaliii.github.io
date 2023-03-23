@@ -255,7 +255,62 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+<script>
+const form = document.querySelector('form');
 
+const submitButton = document.querySelector('button[type="submit"]');
+
+submitButton.addEventListener('click', (event) => {
+  submitButton.innerHTML = "Sending...";
+  event.preventDefault(); // Prevent the form from submitting via HTML
+
+  const name = document.querySelector('#name').value;
+
+  const email = document.querySelector('#email').value;
+
+  const message = document.querySelector('#message').value;
+
+  const url = 'https://farhancodingtutorials.000webhostapp.com/api.php'; // Replace with your desired URL
+
+  // Send a POST request to the URL with the form data
+
+  fetch(url, {
+
+    method: 'POST',
+
+    body: JSON.stringify({ name, email, message }),
+
+    headers: { 'Content-Type': 'application/json' }
+
+  })
+
+  .then(response => {
+    submitButton.innerHTML = "Send";
+    if (response.ok) {
+
+      //alert('Form submitted successfully!');
+      console.log(response);
+      form.reset(); // Reset the form after successful submission
+
+    } else {
+
+      //alert('Error submitting form.');
+      console.log(response);
+    }
+
+  })
+
+  .catch(error => {
+
+    console.error('Error submitting form:', error);
+
+    alert('Error submitting form.');
+
+  });
+
+});
+
+</script>
 </body>
 
 </html>
